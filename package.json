@@ -1,0 +1,15 @@
+{
+  "name": "jorge-cuddly-cats",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "dev": "netlify dev"
+  },
+  "author": "code-jorge",
+  "license": "ISC",
+  "description": "Cuddly cats",
+  "dependencies": {
+    "aws-sdk": "^2.1692.0",
+    "sharp": "^0.33.5"
+  }
+}

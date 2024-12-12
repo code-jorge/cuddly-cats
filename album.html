@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adorable Cats Generator</title>
+  <meta name=" description" content="Generates adorable cats using AI at the touch of a button">
+  <link rel="shortcut icon" href="favicon.png">
+  <link rel="stylesheet" href="styles/common.css">
+  <link rel="stylesheet" href="styles/album.css">
+</head>
+<body>
+  <header>
+    <h1>
+      <span>Adorable</span>
+      <a href="/album">Cats</a>
+      <a href="/">Generator</a>
+    </h1>
+  </header>
+  <main>
+    <div id="error-banner" class="hidden">
+      <span></span>
+      <span id="error-close"></span>
+    </div>
+    <div id="success-banner" class="hidden">
+      <span></span>
+      <span id="success-close"></span>
+    </div>
+    <section id="image-gallery">
+      <p>Loading gallery...</p>
+    </section>
+  </main>
+  <script src="app/common.js"></script>
+  <script src="app/api.js"></script>
+  <script src="app/album.js"></script>
+</body>
+</html>

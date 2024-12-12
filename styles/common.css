@@ -1,0 +1,105 @@
+html, body {
+  font-family: monospace; 
+  margin: 0;
+  background-color: #121212;
+  color: #d9d9d9;
+}
+
+button {
+  font-family: monospace;
+}
+
+.visible {
+  display: block;
+}
+
+.hidden {
+  display: none !important;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+header h1 {
+  font-size: 2em;
+  margin: 0 0 25px;
+}
+
+header h1 a {
+  color: #d9d9d9;
+  text-decoration: none;
+}
+
+main {
+  max-width: 800px;
+  width: calc(100% - 40px);
+  margin: 0 auto;
+}
+
+#error-banner,
+#success-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+}
+
+#error-banner {
+  background-color: #ff4d4f;
+}
+
+#success-banner {
+  background-color: #52c41a;
+}
+
+#error-close,
+#success-close {
+  position: relative;
+  cursor: pointer;
+  padding: 10px;
+  transition: width 0.75s;
+}
+
+#error-close::before,
+#error-close::after,
+#success-close::before,
+#success-close::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 2px;
+  background-color: white;
+  transform-origin: center;
+}
+
+#error-close:hover::before,
+#error-close:hover::after,
+#success-close:hover::before,
+#success-close:hover::after {
+  width: 20px;
+}
+
+#error-close::before,
+#success-close::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+#error-close::after,
+#success-close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+@media screen and (max-width: 768px) {
+  header h1 {
+    font-size: 1.4em;
+    margin: 0 0 25px;
+  }
+}

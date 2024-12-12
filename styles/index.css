@@ -1,0 +1,117 @@
+#tags {
+  font-size: 1.2em;
+  font-weight: 400;
+  margin: 0 0 40px;
+  text-align: center;
+}
+
+#tags .tag {
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+
+.tag[data-index="0"] {
+  background-color: steelblue;
+}
+
+.tag[data-index="1"] {
+  background-color: rebeccapurple;
+}
+
+#generate-button {
+  box-sizing: border-box;
+  border: 1px solid white;
+  margin: 30px auto;
+  max-width: 500px;
+  cursor: pointer;
+  padding: 20px;
+}
+
+#generate-button[data-loading="true"] {
+  cursor: not-allowed;
+  opacity: .6;
+  pointer-events: none;
+}
+
+#generate-button svg {
+  display: block;
+  margin: 30px auto;
+  width: 180px;
+  height: 180px;
+  max-width: 80%;
+}
+
+#generate-button[data-loading="true"] svg {
+  animation: rotate 4s linear infinite;
+}
+
+#generate-button svg path {
+  stroke: white;
+}
+
+#generate-button p {
+  font-size: 1.2em;
+  text-align: center;
+}
+
+#cat-image {
+  max-width: 100%;
+  max-height: 500px;
+  margin: 30px auto;
+  border-radius: 10px;
+}
+
+#buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 30px;
+}
+
+#retry-button,
+#upload-button {
+  cursor: pointer;
+  color: white;
+  background-color: transparent;
+  border: 2px solid white;
+  padding: 6px 20px;
+}
+
+#retry-button[data-loading="true"],
+#upload-button[data-loading="true"] {
+  cursor: not-allowed;
+  opacity: .6;
+  pointer-events: none;
+}
+
+#upload-button[data-finished="true"] {
+  cursor: not-allowed;
+  opacity: .5;
+  pointer-events: none;
+}
+
+@media screen and (max-width: 768px) {
+  #tags span:first-of-type {
+    display: block;
+    margin-bottom: 20px;
+  }
+  #buttons {
+    flex-direction: column;
+    gap: 20px;
+  }
+  #retry-button,
+  #upload-button {
+    padding: 12px 20px;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
