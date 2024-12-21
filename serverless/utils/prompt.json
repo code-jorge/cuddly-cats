@@ -1,0 +1,16 @@
+{
+  "actions": [
+    "sleeping peacefully", 
+    "staring at the ceiling",
+    "walking around the room",
+    "stretching out on the floor",
+    "chasing a toy around the room"
+  ],
+  "locations": [
+    "on a cozy bed with soft blankets", 
+    "on a plush couch with vibrant cushions",
+    "near a window with a view of the outdoors",
+    "by a warm spot on the floor near a chimney",
+    "on top of a soft rug in the middle of the room"
+  ]
+}
