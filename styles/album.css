@@ -12,7 +12,7 @@
 }
 
 #image-gallery img {
-  flex-basis: calc(33.33% - 18px);
+  flex-basis: calc(25% - 22px);
   width: 200px;
   max-width: 100%;
   height: auto;
@@ -22,6 +22,12 @@
 
 #image-gallery img:hover {
   transform: scale(1.1);
+}
+
+@media screen and (max-width: 950px) {
+  #image-gallery img {
+    flex-basis: calc(33.33% - 20px);
+  }
 }
 
 @media screen and (max-width: 680px) {
