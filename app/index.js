@@ -76,24 +76,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Retry image
   retryButtonElement.addEventListener('click', async ()=> {
-    if (isLoading(retryButtonElement)) return
-    setLoading(true)
-    setText(retryButtonElement, 'Generating new cat...')
-    const imageUrl = await fetchCatImage(tags)
-    if (imageUrl) {
-      imageElement.src = imageUrl
-      setAttribute(uploadButtonElement, 'finished', false)
-      setText(uploadButtonElement, 'Save to album')
-      // Use a timeout to render the new image on the page
-      setTimeout(()=> {
-        setLoading(false)
-        setText(retryButtonElement, 'Generate another')
-      }, 750)
-    } else {
-      showError("Failed to generate the new cat image.")
-      setLoading(false)
-      setText(retryButtonElement, 'Generate another')
-    }
+    window.location.reload()
   })
 
 })
