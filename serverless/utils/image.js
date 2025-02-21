@@ -15,7 +15,7 @@ const getAnimal = () => {
 const getType = () => {
   const useType = getBooleanWithProbability(0.25)
   if (useType) return types[getRandomNumber(types.length - 1)]
-  return ""
+  return "ordinary"
 }
 
 const getAction = () => {
@@ -32,13 +32,13 @@ export const getPrompt = (tags) => {
   const action = getAction()
   const location = getLocation()
   return `
-    A detailed, realistic photograph capturing a realistic adorable and friendly ${type} ${animal}. 
+    A realistic professional DSLR photograph capturing a friendly ${type} ${animal}. 
     The ${animal} looks content and relaxed, ${action}. 
     It is situated ${location}, adding to the cozy ambiance. 
-    The scene is enriched by a setting inspired by ${tags.join(" and ")}, 
-    featuring intricate background details and a warm, inviting atmosphere.
+    The scene is photorealistic enriched by a setting inspired by ${tags.join(" and ")}, 
+    featuring intricate background details.
     The lighting is soft and natural, enhancing the textures of the ${animal}'s fur 
-    and the surrounding environment, evoking a sense of charm and tranquility.
+    and the surrounding environment.
   `
 }
 
