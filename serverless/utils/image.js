@@ -32,13 +32,12 @@ export const getPrompt = (tags) => {
   const action = getAction()
   const location = getLocation()
   return `
-    A realistic professional DSLR photograph capturing a friendly ${type} ${animal}. 
-    The ${animal} looks content and relaxed, ${action}. 
-    It is situated ${location}, adding to the cozy ambiance. 
-    The scene is photorealistic enriched by a setting inspired by ${tags.join(" and ")}, 
-    featuring intricate background details.
-    The lighting is soft and natural, enhancing the textures of the ${animal}'s fur 
-    and the surrounding environment.
+    A photorealistic, high-resolution photograph capturing a lifelike ${type} ${animal}.  
+    The ${animal} looks content and relaxed, ${action}.  
+    It is situated ${location}, with an authentic, natural setting.  
+    The scene is inspired by ${tags.join(" and ")}, featuring intricate **but natural** background details.  
+    The lighting is soft and natural, resembling professional DSLR photography, enhancing the textures of the ${animal}'s fur and its surroundings.  
+    The image has zero animation or illustration elements —it looks like a real-world photograph taken with a high-end camera.  
   `
 }
 
