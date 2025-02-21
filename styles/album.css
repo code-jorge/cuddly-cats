@@ -1,52 +1,102 @@
 #image-gallery {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+  min-height: 200px;
 }
 
-#image-gallery p {
-  text-align: center;
+.gallery-item {
+  position: relative;
+  aspect-ratio: 1;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: scale(1.05);
+}
+
+.gallery-item img {
   width: 100%;
-  margin: 3rem 0;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-#image-gallery img {
-  flex-basis: calc(25% - 22px);
-  width: 200px;
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-  transition: transform 0.2s;
+.gallery-item img.loaded {
+  opacity: 1;
 }
 
-#image-gallery img:hover {
-  transform: scale(1.1);
+.gallery-item .skeleton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
 }
 
-@media screen and (max-width: 950px) {
-  #image-gallery img {
-    flex-basis: calc(33.33% - 20px);
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
   }
 }
 
-@media screen and (max-width: 680px) {
-  #image-gallery img {
-    flex-basis: calc(50% - 10px);
-  }
-  #image-gallery {
-    width: 415px;
-    margin: 0 auto;
-  }
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
-@media screen and (max-width: 460px) {
-  #image-gallery img {
-    flex-basis: 100%;
-  }
-  #image-gallery {
-    width: calc(100% - 20px);
-    margin: 0 auto;
-    gap: 40px;
-  }
+.modal.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  max-width: 90%;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.loading-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.7);
 }

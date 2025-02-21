@@ -1,11 +1,22 @@
 {
+  "types": [
+    "black",
+    "white",
+    "orange",
+    "tabby",
+    "calico",
+    "siamese",
+    "persian"
+  ],
   "actions": [
     "sleeping peacefully", 
     "staring at the ceiling",
-    "walking around the room",
-    "stretching out on the floor",
-    "chasing a toy around the room",
-    "laying upside down on a carpet"
+    "walking slowly",
+    "stretching out",
+    "chasing a toy",
+    "laying down",
+    "licking its paws",
+    "sniffing around the room"
   ],
   "locations": [
     "on a cozy bed with soft blankets", 
