@@ -5,6 +5,11 @@ const imageActionButtons = document.getElementById('buttons')
 const uploadButtonElement = document.getElementById('upload-button')
 const retryButtonElement = document.getElementById('retry-button')
 
+const MAX_ATTEMPTS = 15
+const INTERVAL = 5000
+
+const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms))  
+
 const renderTags = (tags) => {
   const tagsElement = document.getElementById('tags')
   if (tags.length > 0) tagsElement.innerHTML = `
@@ -39,38 +44,86 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
     setLoading(true)
     setText(generateIndicator, 'Generating cat...')
-    const imageUrl = await fetchCatImage(tags)
-    if (imageUrl) {
-      imageElement.src = imageUrl
-      hideElement(generateButtonElement)
-      showElement(imageElement)
-      showElement(imageActionButtons)
-    } else {
-      showError("Failed to generate the cat image.")
+
+    // Generate a unique ID for this request
+    const requestId = `cat-${Date.now()}`
+    
+    try {
+      // Initial request to the background function
+      const response = await fetch('/api/image-background', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tags, id: requestId })
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to start image generation')
+      }
+
+      const pollForImage = async () => {
+        const pollResponse = await fetch(`/api/get-image?id=${requestId}`)
+        if (pollResponse.ok) {
+          const data = await pollResponse.json()
+          if (data.content) {
+            // Image is ready
+            imageElement.src = `data:image/png;base64,${data.content}`
+            imageElement.dataset.requestId = requestId  // Store the request ID
+            hideElement(generateButtonElement)
+            showElement(imageElement)
+            showElement(imageActionButtons)
+            return true
+          }
+        }
+        return false
+      }
+
+      let attempts = 0;
+
+      // Poll every 5 seconds until image is ready or timeout
+      while (attempts < MAX_ATTEMPTS) {
+        await wait(INTERVAL)
+        const imageReady = await pollForImage()
+        if (imageReady) break
+      }
+
+    } catch (error) {
+      showError(error.message || "Failed to generate the cat image.")
+    } finally {
+      setLoading(false)
+      setText(generateIndicator, 'Generate cat')
     }
-    setLoading(false)
-    setText(generateIndicator, 'Generate cat')
   })
 
   // Upload image
   uploadButtonElement.addEventListener('click', async () => {
     if (isLoading(uploadButtonElement)) return
     const imageElement = document.getElementById('cat-image')
-    const imageUrl = imageElement.src
-    if (!imageUrl) {
+    const requestId = imageElement.dataset.requestId
+    if (!requestId) {
       showError("No image available to upload!")
       return
     }
     setLoading(true)
     setText(uploadButtonElement, 'Saving...')
-    const uploaded = await uploadImageToS3(imageUrl)
-    setLoading(false)
-    if (uploaded) {
+    
+    try {
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: requestId })
+      })
+      
+      if (!response.ok) {
+        throw new Error('Failed to upload image')
+      }
+      
       setText(uploadButtonElement, 'Saved to album')
       setAttribute(uploadButtonElement, 'finished', true)
-    }
-    else {
+    } catch (error) {
+      showError(error.message || 'Failed to save image')
       setText(uploadButtonElement, 'Save to album')
+    } finally {
+      setLoading(false)
     }
   })
 
