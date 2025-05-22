@@ -1,7 +1,6 @@
 import s3 from './s3'
 
 const BUCKET_NAME = process.env.PROJECT_S3_BUCKET_NAME
-const AWS_REGION = process.env.PROJECT_AWS_REGION
 
 export const getImages = async ()=> {
   const params = {
@@ -14,7 +13,7 @@ export const getImages = async ()=> {
 }
 
 export const getImageUrl = (image)=> {
-  const baseUrl = `https://${BUCKET_NAME}.s3.${AWS_REGION}.amazonaws.com`;
+  const baseUrl = `https://cdn.jorgeaguirre.es/`;
   return `${baseUrl}/${encodeURIComponent(image)}`
 }
 
