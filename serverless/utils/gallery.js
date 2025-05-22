@@ -13,7 +13,7 @@ export const getImages = async ()=> {
 }
 
 export const getImageUrl = (image)=> {
-  const baseUrl = `https://cdn.jorgeaguirre.es/`;
+  const baseUrl = `https://cdn.jorgeaguirre.es`;
   return `${baseUrl}/${encodeURIComponent(image)}`
 }
 
