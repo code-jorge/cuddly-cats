@@ -34,10 +34,8 @@ export const getPrompt = (tags) => {
   return `
     A photorealistic, high-resolution photograph capturing a lifelike ${type} ${animal}.  
     The ${animal} looks content and relaxed, ${action}.  
-    It is situated ${location}, with an authentic, natural setting.  
-    The scene is inspired by ${tags.join(" and ")}, featuring intricate **but natural** background details.  
-    The lighting is soft and natural, resembling professional DSLR photography, enhancing the textures of the ${animal}'s fur and its surroundings.  
-    The image has zero animation or illustration elements —it looks like a real-world photograph taken with a high-end camera.  
+    It is situated ${location}.  
+    The scene is inspired by ${tags.join(" and ")}, featuring intricate.  
   `
 }
 
