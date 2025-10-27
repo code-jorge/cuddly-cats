@@ -1,9 +1,7 @@
-import OpenAI from 'openai'
 import { types, actions, locations } from './video-prompt.json'
 
-const openai = new OpenAI({
-  apiKey: process.env.PROJECT_OPENAI_API_KEY,
-})
+const OPENAI_API_KEY = process.env.PROJECT_OPENAI_API_KEY
+const OPENAI_API_URL = 'https://api.openai.com/v1'
 
 const getRandomBoolean = ()=> Math.random() < 0.5
 
@@ -44,25 +42,50 @@ export const getPrompt = (tags) => {
 }
 
 export const getVideo = async (prompt)=> {
-  const response = await openai.videos.create({
-    prompt,
-    size: '720x1280',
-    seconds: '8',
-    model: 'sora-2-pro'
+  const response = await fetch(`${OPENAI_API_URL}/videos`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${OPENAI_API_KEY}`
+    },
+    body: JSON.stringify({
+      model: 'sora-2-pro',
+      prompt: prompt,
+      size: '720x1280',
+      seconds: '8',
+    })
   })
-  console.log(response)
-  return response
+  if (!response.ok) {
+    const error = await response.text()
+    throw new Error(`Failed to create video: ${error}`)
+  }
+  const data = await response.json()
+  return data
 }
 
 export const checkVideo = async (videoId) => {
-  const video = await openai.videos.retrieve(videoId)
+  const response = await fetch(`${OPENAI_API_URL}/videos/${videoId}`, {
+    method: 'GET',
+    headers: { 'Authorization': `Bearer ${OPENAI_API_KEY}` }
+  })
+  if (!response.ok) {
+    const error = await response.text()
+    throw new Error(`Failed to retrieve video: ${error}`)
+  }
+  const video = await response.json()
   return video.status
 }
 
 export const downloadVideo = async (videoId) => {
-  const response = await openai.videos.downloadContent(videoId)
-  const content = await response.blob()
-  const arrayBuffer = await content.arrayBuffer();
-  const buffer = Buffer.from(arrayBuffer);
+  const response = await fetch(`${OPENAI_API_URL}/videos/${videoId}/content`, {
+    method: 'GET',
+    headers: { 'Authorization': `Bearer ${OPENAI_API_KEY}` }
+  })
+  if (!response.ok) {
+    const error = await response.text()
+    throw new Error(`Failed to download video: ${error}`)
+  }
+  const arrayBuffer = await response.arrayBuffer()
+  const buffer = Buffer.from(arrayBuffer)
   return buffer
 }

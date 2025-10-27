@@ -1,9 +1,7 @@
-import OpenAI from 'openai'
 import { types, actions, locations } from './prompt'
 
-const openai = new OpenAI({
-  apiKey: process.env.PROJECT_OPENAI_API_KEY,
-})
+const OPENAI_API_KEY = process.env.PROJECT_OPENAI_API_KEY
+const OPENAI_API_URL = 'https://api.openai.com/v1'
 
 const getRandomBoolean = ()=> Math.random() < 0.5
 
@@ -43,12 +41,25 @@ export const getPrompt = (tags) => {
 }
 
 export const getImage = async (prompt)=> {
-  const response = await openai.images.generate({
-    model: "gpt-image-1",
-    prompt,
-    n: 1,
-    size: "1024x1024",
-    quality: "high",
+  const response = await fetch(`${OPENAI_API_URL}/images/generations`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${OPENAI_API_KEY}`
+    },
+    body: JSON.stringify({
+      model: "gpt-image-1",
+      prompt,
+      n: 1,
+      size: "1024x1024"
+    })
   })
-  return response
+
+  if (!response.ok) {
+    const error = await response.text()
+    throw new Error(`Failed to generate image: ${error}`)
+  }
+
+  const data = await response.json()
+  return data
 }
