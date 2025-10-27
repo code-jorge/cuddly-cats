@@ -50,6 +50,7 @@ export const getVideo = async (prompt)=> {
     seconds: '8',
     model: 'sora-2-pro'
   })
+  console.log(response)
   return response
 }
 

@@ -8,7 +8,9 @@ export default async () => {
     const tags = getWords(2)
     // Generate prompt and video
     const prompt = getPrompt(tags)
+    console.log(prompt)
     const response = await getVideo(prompt)
+    console.log("Video generation response:", response)
     // Store video data in blobs
     await store.setJSON(response.id, response)
     return Response.json({ success: true })
