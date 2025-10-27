@@ -47,14 +47,14 @@ const uploadImageToS3 = async (url)=> {
   }
 }
 
-const fetchGallery = async ()=> {
+const fetchGallery = async (page = 1)=> {
   try {
-    const response = await fetch('/api/gallery')
-    const urls = await response.json()
-    return urls
+    const response = await fetch(`/api/gallery?page=${page}`)
+    const data = await response.json()
+    return data
   } catch (error) {
     logError("Error fetching gallery", error)
     showError("Failed to fetch the gallery.")
-    return []
+    return { images: [], pagination: { currentPage: 1, totalPages: 0, totalImages: 0 } }
   }
 }

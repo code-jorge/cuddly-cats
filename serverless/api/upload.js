@@ -1,4 +1,4 @@
-import { getImageName, getThumbnailName, resize, upload } from '../utils/upload'
+import { getThumbnailName, resize, upload } from '../utils/upload'
 import { getStore } from "@netlify/blobs"
 
 export default async (request) => {
