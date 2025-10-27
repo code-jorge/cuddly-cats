@@ -1,5 +1,5 @@
 import OpenAI from 'openai'
-import { types, actions, locations } from './prompt'
+import { types, actions, locations } from './video-prompt.json'
 
 const openai = new OpenAI({
   apiKey: process.env.PROJECT_OPENAI_API_KEY,
@@ -35,21 +35,33 @@ export const getPrompt = (tags) => {
   const action = getAction()
   const location = getLocation()
   return `
-    A photorealistic, high-resolution photograph capturing a lifelike ${type} ${animal}.  
-    The ${animal} looks content and relaxed, ${action}.  
-    It is situated ${location}.  
-    The scene is inspired by ${tags.join(" and ")}, featuring intricate.  
+    A smooth, cinematic video capturing a lifelike ${type} ${animal}.
+    The ${animal} looks content and relaxed, ${action}.
+    It is situated ${location}.
+    The scene is inspired by ${tags.join(" and ")}, featuring natural movement and intricate details.
+    The camera is steady with soft lighting.
   `
 }
 
-export const getImage = async (prompt)=> {
-  const response = await openai.images.generate({
-    model: "gpt-image-1",
+export const getVideo = async (prompt)=> {
+  const response = await openai.videos.create({
     prompt,
-    n: 1,
-    size: "1024x1024",
-    quality: "high",
-    response_format: "b64_json",
+    size: '720x1280',
+    seconds: '8',
+    model: 'sora-2-pro'
   })
   return response
+}
+
+export const checkVideo = async (videoId) => {
+  const video = await openai.videos.retrieve(videoId)
+  return video.status
+}
+
+export const downloadVideo = async (videoId) => {
+  const response = await openai.videos.downloadContent(videoId)
+  const content = await response.blob()
+  const arrayBuffer = await content.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
+  return buffer
 }

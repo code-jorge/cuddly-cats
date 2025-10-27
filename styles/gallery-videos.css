@@ -1,0 +1,150 @@
+#video-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+  min-height: 200px;
+}
+
+.gallery-item {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.gallery-item:hover {
+  transform: scale(1.05);
+}
+
+.gallery-item video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gallery-item video.loaded {
+  opacity: 1;
+}
+
+.gallery-item .skeleton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.modal.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  max-width: 90%;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.loading-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Pagination styles */
+#pagination {
+  padding: 2rem 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.pagination-btn {
+  padding: 0.75rem 1.5rem;
+  background: white;
+  color: black;
+  border: 2px solid black;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: black;
+  color: white;
+}
+
+.pagination-btn:disabled {
+  cursor: not-allowed;
+  background: rgba(96, 96, 96);
+}
+
+.page-info {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  min-width: 120px;
+  text-align: center;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adorable Cats Videos</title>
+  <meta name=" description" content="Generates adorable cat videos using AI">
+  <link rel="shortcut icon" href="favicon.png">
+  <link rel="stylesheet" href="styles/common.css">
+  <link rel="stylesheet" href="styles/gallery-videos.css">
+</head>
+<body>
+  <header>
+    <h1>
+      <a href="/">Adorable</a>
+      <a href="/gallery-images">Cats</a>
+      <a href="/generate-video">Generator</a>
+    </h1>
+  </header>
+  <main class="gallery-videos">
+    <div id="error-banner" class="hidden">
+      <span></span>
+      <span id="error-close"></span>
+    </div>
+    <div id="success-banner" class="hidden">
+      <span></span>
+      <span id="success-close"></span>
+    </div>
+    <section id="video-gallery">
+      <div class="gallery-item"><div class="skeleton"></div></div>
+      <div class="gallery-item"><div class="skeleton"></div></div>
+      <div class="gallery-item"><div class="skeleton"></div></div>
+      <div class="gallery-item"><div class="skeleton"></div></div>
+      <div class="gallery-item"><div class="skeleton"></div></div>
+      <div class="gallery-item"><div class="skeleton"></div></div>
+      <div class="gallery-item"><div class="skeleton"></div></div>
+      <div class="gallery-item"><div class="skeleton"></div></div>
+      <div class="gallery-item"><div class="skeleton"></div></div>
+      <div class="gallery-item"><div class="skeleton"></div></div>
+      <div class="gallery-item"><div class="skeleton"></div></div>
+      <div class="gallery-item"><div class="skeleton"></div></div>
+    </section>
+    <div id="pagination"></div>
+    <div id="modal" class="modal">
+      <span id="close" class="close">&times;</span>
+      <video class="modal-content" id="modal-video" controls autoplay loop></video>
+    </div>
+  </main>
+  <script src="app/common.js"></script>
+  <script src="app/api.js"></script>
+  <script src="app/gallery-videos.js"></script>
+</body>
+</html>

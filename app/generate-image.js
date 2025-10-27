@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     setText(uploadButtonElement, 'Saving...')
     
     try {
-      const response = await fetch('/api/upload', {
+      const response = await fetch('/api/image-upload', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: requestId })

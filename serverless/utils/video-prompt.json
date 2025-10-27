@@ -1,0 +1,25 @@
+{
+  "types": [
+    "black",
+    "white",
+    "orange",
+    "tabby",
+    "calico",
+    "siamese",
+    "persian"
+  ],
+  "actions": [
+    "walking slowly",
+    "stretching out",
+    "running around",
+    "jumping playfully",
+    "sniffing around"
+  ],
+  "locations": [
+    "in the living room",
+    "in the garden",
+    "on the balcony",
+    "in the hallway",
+    "in the bedroom"
+  ]
+}

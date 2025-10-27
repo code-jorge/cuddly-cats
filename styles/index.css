@@ -1,117 +1,159 @@
-#tags {
-  font-size: 1.2em;
-  font-weight: 400;
-  margin: 0 0 40px;
+main.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 200px);
+  padding: 2rem;
+}
+
+header h1 {
   text-align: center;
+  margin-bottom: 3rem;
 }
 
-#tags .tag {
-  text-transform: uppercase;
-  letter-spacing: .4px;
-  padding: 4px 10px;
-  border-radius: 12px;
+header h1 span {
+  margin: 0 0.5rem;
 }
 
-.tag[data-index="0"] {
-  background-color: steelblue;
+.cards-container {
+  max-width: 1200px;
+  width: 100%;
 }
 
-.tag[data-index="1"] {
-  background-color: rebeccapurple;
+.card-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 4rem;
 }
 
-#generate-button {
-  box-sizing: border-box;
-  border: 1px solid white;
-  margin: 30px auto;
-  max-width: 500px;
-  cursor: pointer;
-  padding: 20px;
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 2rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  text-decoration: none;
+  color: white;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-#generate-button[data-loading="true"] {
-  cursor: not-allowed;
-  opacity: .6;
-  pointer-events: none;
+.card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
 
-#generate-button svg {
+.card-icon {
+  position: relative;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-icon svg {
   display: block;
-  margin: 30px auto;
-  width: 180px;
-  height: 180px;
-  max-width: 80%;
 }
 
-#generate-button[data-loading="true"] svg {
-  animation: rotate 4s linear infinite;
+.generate-card svg path {
+  stroke: rgb(200, 200, 200);
+  transition: stroke 0.3s ease;
 }
 
-#generate-button svg path {
+.generate-card:hover svg path {
   stroke: white;
 }
 
-#generate-button p {
-  font-size: 1.2em;
+.gallery-card svg rect {
+  stroke: rgb(200, 200, 200);
+  transition: all 0.3s ease;
+}
+
+.gallery-card:hover svg rect {
+  stroke: white;
+}
+
+.video-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: white;
+  color: black;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.card h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0 0 0.75rem;
   text-align: center;
 }
 
-#cat-image {
-  max-width: 100%;
-  max-height: 500px;
-  margin: 30px auto;
-  border-radius: 10px;
-}
-
-#buttons {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  gap: 30px;
-}
-
-#retry-button,
-#upload-button {
-  cursor: pointer;
-  color: white;
-  background-color: transparent;
-  border: 2px solid white;
-  padding: 6px 20px;
-}
-
-#retry-button[data-loading="true"],
-#upload-button[data-loading="true"] {
-  cursor: not-allowed;
-  opacity: .6;
-  pointer-events: none;
-}
-
-#upload-button[data-finished="true"] {
-  cursor: not-allowed;
-  opacity: .5;
-  pointer-events: none;
+.card p {
+  font-size: 1rem;
+  margin: 0;
+  opacity: 0.8;
+  text-align: center;
+  line-height: 1.5;
 }
 
 @media screen and (max-width: 768px) {
-  #tags span:first-of-type {
-    display: block;
-    margin-bottom: 20px;
+  main.home {
+    min-height: calc(100vh - 150px);
+    padding: 1rem;
   }
-  #buttons {
-    flex-direction: column;
-    gap: 20px;
+
+  header h1 {
+    margin-bottom: 2rem;
   }
-  #retry-button,
-  #upload-button {
-    padding: 12px 20px;
+
+  .card-row {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .card {
+    padding: 2rem 1.5rem;
+  }
+
+  .card-icon svg {
+    width: 60px;
+    height: 60px;
+  }
+
+  .card h2 {
+    font-size: 1.3rem;
+  }
+
+  .card p {
+    font-size: 0.9rem;
   }
 }
 
-@keyframes rotate {
-  0% {
-    transform: rotate(0deg);
+@media screen and (max-width: 480px) {
+  .card {
+    padding: 1.5rem 1rem;
   }
-  100% {
-    transform: rotate(360deg);
+
+  .card-icon svg {
+    width: 50px;
+    height: 50px;
+  }
+
+  .card h2 {
+    font-size: 1.2rem;
   }
 }

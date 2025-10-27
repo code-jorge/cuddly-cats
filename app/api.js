@@ -29,7 +29,7 @@ const fetchCatImage = async (tags)=> {
 
 const uploadImageToS3 = async (url)=> {
   try {
-    const response = await fetch('/api/upload', {
+    const response = await fetch('/api/image-upload', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ imageUrl: url }),
@@ -49,12 +49,24 @@ const uploadImageToS3 = async (url)=> {
 
 const fetchGallery = async (page = 1)=> {
   try {
-    const response = await fetch(`/api/gallery?page=${page}`)
+    const response = await fetch(`/api/image-gallery?page=${page}`)
     const data = await response.json()
     return data
   } catch (error) {
     logError("Error fetching gallery", error)
     showError("Failed to fetch the gallery.")
     return { images: [], pagination: { currentPage: 1, totalPages: 0, totalImages: 0 } }
+  }
+}
+
+const fetchVideoGallery = async (page = 1)=> {
+  try {
+    const response = await fetch(`/api/video-gallery?page=${page}`)
+    const data = await response.json()
+    return data
+  } catch (error) {
+    logError("Error fetching video gallery", error)
+    showError("Failed to fetch the video gallery.")
+    return { videos: [], pagination: { currentPage: 1, totalPages: 0, totalVideos: 0 } }
   }
 }

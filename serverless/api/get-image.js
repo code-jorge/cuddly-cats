@@ -1,6 +1,6 @@
 import { getStore } from "@netlify/blobs";
 
-export default async (request, context) => {
+export default async (request) => {
   try {
     const store = getStore("images");
     const url = new URL(request.url);

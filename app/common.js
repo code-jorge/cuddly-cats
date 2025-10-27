@@ -53,6 +53,6 @@ const logError = (message, error)=> console.error(`${message}:`, error)
 document.addEventListener("DOMContentLoaded", async () => {
   const errorCloseButtonElement = document.getElementById('error-close')
   const successCloseButtonElement = document.getElementById('success-close')
-  errorCloseButtonElement.addEventListener('click', hideError)
-  successCloseButtonElement.addEventListener('click', hideSuccess)
+  if (errorCloseButtonElement) errorCloseButtonElement.addEventListener('click', hideError)
+  if (successCloseButtonElement) successCloseButtonElement.addEventListener('click', hideSuccess)
 })

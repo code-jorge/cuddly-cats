@@ -1,0 +1,152 @@
+#tags {
+  font-size: 1.2em;
+  font-weight: 400;
+  margin: 0 0 40px;
+  text-align: center;
+}
+
+#tags .tag {
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+
+.tag[data-index="0"] {
+  background-color: steelblue;
+}
+
+.tag[data-index="1"] {
+  background-color: rebeccapurple;
+}
+
+#generate-button {
+  box-sizing: border-box;
+  border: 1px solid white;
+  margin: 30px auto;
+  max-width: 500px;
+  cursor: pointer;
+  padding: 20px;
+}
+
+#generate-button[data-loading="true"] {
+  cursor: not-allowed;
+  opacity: .6;
+  pointer-events: none;
+}
+
+#generate-button svg {
+  display: block;
+  margin: 30px auto;
+  width: 180px;
+  height: 180px;
+  max-width: 80%;
+}
+
+#generate-button[data-loading="true"] svg {
+  animation: rotate 4s linear infinite;
+}
+
+#generate-button svg path {
+  stroke: white;
+}
+
+#generate-button p {
+  font-size: 1.2em;
+  text-align: center;
+}
+
+#video-status {
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 40px;
+  text-align: center;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+#video-status .status-icon {
+  font-size: 4em;
+  margin-bottom: 20px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+#video-status h3 {
+  font-size: 1.5em;
+  margin: 0 0 20px;
+  font-weight: 500;
+}
+
+#video-status p {
+  font-size: 1.1em;
+  margin: 15px 0;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+#video-status a {
+  color: white;
+  text-decoration: underline;
+}
+
+#video-status a:hover {
+  color: lightskyblue;
+}
+
+#generate-another-button {
+  margin-top: 30px;
+  cursor: pointer;
+  color: white;
+  background-color: transparent;
+  border: 2px solid white;
+  padding: 12px 30px;
+  font-size: 1em;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+#generate-another-button:hover {
+  background-color: white;
+  color: black;
+}
+
+@media screen and (max-width: 768px) {
+  #tags span:first-of-type {
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  #video-status {
+    margin: 30px 20px;
+    padding: 30px 20px;
+  }
+
+  #video-status h3 {
+    font-size: 1.3em;
+  }
+
+  #video-status p {
+    font-size: 1em;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
