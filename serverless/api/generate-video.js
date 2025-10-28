@@ -1,3 +1,4 @@
+import { log } from '../utils/log'
 import { getVideo, getPrompt } from '../utils/video'
 import { getWords } from '../utils/words'
 import { getStore } from "@netlify/blobs"
@@ -8,9 +9,9 @@ export default async () => {
     const tags = getWords(2)
     // Generate prompt and video
     const prompt = getPrompt(tags)
-    console.log(prompt)
+    log(`Generated prompt: ${prompt}`)
     const response = await getVideo(prompt)
-    console.log("Video generation response:", response)
+    log(`Video creation initiated with ID: ${response.id}`)
     // Store video data in blobs
     await store.setJSON(response.id, response)
     return Response.json({ success: true })
