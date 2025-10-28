@@ -83,7 +83,7 @@ export const downloadVideo = async (videoId) => {
   })
   if (!response.ok) {
     const error = await response.text()
-    throw new Error(`Failed to download video: ${error}`)
+    throw new Error(`Failed to download video: ${error.message}`)
   }
   const arrayBuffer = await response.arrayBuffer()
   const buffer = Buffer.from(arrayBuffer)
