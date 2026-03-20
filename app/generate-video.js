@@ -25,6 +25,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   const tags = await fetchTags()
   renderTags(tags)
 
+  // Check if a video is already being generated
+  const videoStatus = await fetchVideoStatus()
+  if (videoStatus.pending) {
+    hideElement(generateButtonElement)
+    showElement(videoStatusElement)
+    return
+  }
+
   // Generate video
   generateButtonElement.addEventListener('click', async () => {
     if (isLoading(generateButtonElement)) return
@@ -40,9 +48,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' }
       })
+      const data = await response.json()
 
       if (!response.ok) {
-        throw new Error('Failed to start video generation')
+        throw new Error(data.error || 'Failed to start video generation')
       }
 
       // Show success status

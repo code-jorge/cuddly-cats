@@ -57,6 +57,62 @@
   }
 }
 
+/* Progress card */
+.progress-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+  cursor: default;
+}
+
+.progress-card:hover {
+  transform: none;
+}
+
+.progress-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.progress-ring {
+  transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
+}
+
+.progress-ring-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 6;
+}
+
+.progress-ring-bar {
+  fill: none;
+  stroke: #52c41a;
+  stroke-width: 6;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.progress-label {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
 /* Modal styles */
 .modal {
   display: none;

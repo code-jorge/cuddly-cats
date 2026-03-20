@@ -52,6 +52,31 @@ const renderPagination = (pagination) => {
   paginationContainer.innerHTML = html
 }
 
+// Create circular progress bar element
+const createProgressCard = (status, progress) => {
+  const item = document.createElement('div')
+  item.className = 'gallery-item progress-card'
+
+  const radius = 45
+  const circumference = 2 * Math.PI * radius
+  const offset = circumference - (progress / 100) * circumference
+  const label = status === 'queued' ? 'Queued' : `${progress}%`
+
+  item.innerHTML = `
+    <div class="progress-container">
+      <svg class="progress-ring" viewBox="0 0 120 120">
+        <circle class="progress-ring-bg" cx="60" cy="60" r="${radius}" />
+        <circle class="progress-ring-bar" cx="60" cy="60" r="${radius}"
+          stroke-dasharray="${circumference}"
+          stroke-dashoffset="${offset}" />
+      </svg>
+      <span class="progress-text">${label}</span>
+    </div>
+    <p class="progress-label">Generating video...</p>
+  `
+  return item
+}
+
 // Load gallery for a specific page
 const loadGallery = async (page = 1) => {
   const data = await fetchVideoGallery(page)
@@ -60,11 +85,28 @@ const loadGallery = async (page = 1) => {
 
   if (!videos || videos.length === 0) {
     gallery.innerHTML = "<p>No videos found in the gallery.</p>"
+    // Still check for in-progress video on page 1
+    if (page === 1) {
+      const videoStatus = await fetchVideoStatus()
+      if (videoStatus.pending) {
+        gallery.innerHTML = ""
+        gallery.appendChild(createProgressCard(videoStatus.status, videoStatus.progress))
+      }
+    }
     paginationContainer.innerHTML = ''
     return
   }
 
   gallery.innerHTML = ""
+
+  // Show in-progress card as first item on page 1
+  if (page === 1) {
+    const videoStatus = await fetchVideoStatus()
+    if (videoStatus.pending) {
+      gallery.appendChild(createProgressCard(videoStatus.status, videoStatus.progress))
+    }
+  }
+
   videos.forEach(videoUrl => {
     // Create main item
     const item = document.createElement('div')

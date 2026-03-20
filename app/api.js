@@ -59,6 +59,16 @@ const fetchGallery = async (page = 1)=> {
   }
 }
 
+const fetchVideoStatus = async ()=> {
+  try {
+    const response = await fetch('/api/video-status')
+    return await response.json()
+  } catch (error) {
+    logError("Error fetching video status", error)
+    return { pending: false }
+  }
+}
+
 const fetchVideoGallery = async (page = 1)=> {
   try {
     const response = await fetch(`/api/video-gallery?page=${page}`)

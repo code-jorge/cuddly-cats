@@ -18,22 +18,31 @@ export default async () => {
     try {
       const { key } = blob
       log(`Processing video with key: ${key}`)
-      const videoData = await store.get(key)
-      if (!videoData) continue
-      const data = JSON.parse(videoData)
+      const data = await store.get(key, { type: 'json' })
+      if (!data) continue
       // Check video status before attempting to download
-      const status = await checkVideo(data.id)
-      log(`Video ID: ${data.id} has status: ${status}`)
+      const video = await checkVideo(data.id)
+      const { status, progress } = video
+      log(`Video ID: ${data.id} has status: ${status}, progress: ${progress}`)
       if (status === "completed") {
         const buffer = await downloadVideo(data.id)
         const timestamp = data.created_at ? data.created_at : Date.now()
         const filename = `cat-video-${timestamp}.mp4`
         log(`Uploading video ID: ${data.id} as ${filename}`)
         await uploadVideo(buffer, filename)
-      } 
+      }
       if (status === "completed" || status === "failed") {
         log(`Deleting video with key: ${key}`)
         await store.delete(key)
+      }
+      if (status === "queued" || status === "in_progress") {
+        log(`Video ID: ${data.id} still processing, updating blob`)
+        await store.setJSON(key, {
+          ...data,
+          status,
+          progress: status === "queued" ? 0 : (progress || 0),
+          last_checked: Date.now()
+        })
       }
     } catch (error) {
       log(`Error processing video ${blob.key}: ${error.message}`)

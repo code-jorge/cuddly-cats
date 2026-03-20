@@ -72,8 +72,7 @@ export const checkVideo = async (videoId) => {
     const error = await response.text()
     throw new Error(`Failed to retrieve video: ${error}`)
   }
-  const video = await response.json()
-  return video.status
+  return await response.json()
 }
 
 export const downloadVideo = async (videoId) => {
